@@ -96,8 +96,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # CORS configuration
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://abrajfrontend-git-main-bilalpts-projects.vercel.app",
+    "https://abrajfrontend-bgdh-git-main-bilalpts-projects.vercel.app",
 ]
+
 CORS_ALLOW_CREDENTIALS = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
