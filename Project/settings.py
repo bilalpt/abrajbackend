@@ -2,29 +2,33 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()  # Load .env variables if running locally
+# Load environment variables (only used locally)
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# 🔐 Secret Key
 SECRET_KEY = os.getenv("SECRET_KEY", "your_local_secret_key")
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# ⚙️ Debug mode
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
-# Allowed hosts
+# 🌍 Allowed Hosts
 ALLOWED_HOSTS = os.getenv(
     "ALLOWED_HOSTS",
     "localhost,127.0.0.1,abrajbackend.onrender.com"
 ).split(",")
 
-# CSRF trusted origins (for frontend)
-CSRF_TRUSTED_ORIGINS = os.getenv(
-    "CSRF_TRUSTED_ORIGINS",
-    "https://abrajfrontend-git-main-bilalpts-projects.vercel.app,https://abrajbackend.onrender.com"
-).split(",")
+# 🔒 CSRF Trusted Origins (for frontend + backend)
+CSRF_TRUSTED_ORIGINS = [
+    "https://abrajfrontend-bgdh.vercel.app",
+    "https://abrajfrontend-bgdh-git-main-bilalpts-projects.vercel.app",
+    "https://abrajbackend.onrender.com",
+]
 
-# Application definition
+# ------------------------------------------------
+# 📦 Application Definition
+# ------------------------------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,7 +42,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Must be placed before CommonMiddleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,7 +71,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Project.wsgi.application'
 
-# Database
+# ------------------------------------------------
+# 🗄️ Database
+# ------------------------------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -75,7 +81,9 @@ DATABASES = {
     }
 }
 
-# Password validation
+# ------------------------------------------------
+# 🔑 Password Validation
+# ------------------------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -83,22 +91,38 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Internationalization
+# ------------------------------------------------
+# 🌐 Internationalization
+# ------------------------------------------------
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files
+# ------------------------------------------------
+# 🧾 Static Files
+# ------------------------------------------------
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# CORS configuration
+# ------------------------------------------------
+# 🔓 CORS Configuration
+# ------------------------------------------------
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "https://abrajfrontend-bgdh.vercel.app",
     "https://abrajfrontend-bgdh-git-main-bilalpts-projects.vercel.app",
 ]
 
-CORS_ALLOW_CREDENTIALS = True
+# ✅ Automatically allow all Vercel preview URLs
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://abrajfrontend-bgdh-.*\.vercel\.app$",
+]
 
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = ['*']
+
+# ------------------------------------------------
+# 🧱 Default Auto Field
+# ------------------------------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
